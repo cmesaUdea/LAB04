@@ -96,28 +96,24 @@ void Redes::RutaReducida(string origen, string destino)
     cout<<prueba<<" con un costo de "<<ways[prueba]<<endl;
 }
 
-string Redes::caminoMasCorto()
-{
-    int better=1000,cont=0;
-    string chosen;
-    bool flag =1;
-    for(itW=ways.begin();itW!=ways.end();itW++,++cont){
-        if(flag){
-            cout<<"\nCamino "<<cont+1<<endl;
-            cout<<itW->first<<" con un costo de "<<itW->second<<endl;
-        }
-        else {
-            if(itW->second<better && itW->second>0){
-                chosen = itW->first;
-                better = itW->second;
-            }
-            else if(cont==0){
-                chosen = itW->first;
-                better = itW->second;
-            }
+string Redes::caminoMasCorto() {
+    int mejorCosto = 1000;
+    string mejorCamino;
+
+    for(itW = ways.begin(); itW != ways.end(); ++itW) {
+        if(itW->second > 0 && itW->second < mejorCosto) {
+            mejorCamino = itW->first;
+            mejorCosto = itW->second;
         }
     }
-    return chosen;
+
+    if(!mejorCamino.empty()) {
+        cout << "El mejor camino es: " << mejorCamino << endl;
+    } else {
+        cout << "No se encontraron caminos válidos." << endl;
+    }
+
+    return mejorCamino;
 }
 
 bool Redes::CaminoDirecto(string origen, string destino, map<string,map<string,int>>::iterator it1,map<string,int>::iterator it2){
